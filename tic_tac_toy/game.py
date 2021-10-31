@@ -1,8 +1,8 @@
 from itertools import cycle
 
-from game.board import get_board, board_match, display_board
-from game.steps import make_step, ask_new_game
-from game.users import ask_mode, create_users
+from tic_tac_toy.board import get_board, board_match, display_board
+from tic_tac_toy.steps import make_step, ask_new_game
+from tic_tac_toy.users import ask_mode, create_users
 
 
 def game_init() -> dict:

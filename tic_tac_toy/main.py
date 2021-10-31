@@ -1,5 +1,5 @@
-from game.board import get_board
-from game.game import game_init, game_cycle, game_end
+from tic_tac_toy.board import get_board
+from tic_tac_toy.game import game_init, game_cycle, game_end
 
 
 def main():

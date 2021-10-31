@@ -1,6 +1,6 @@
 import random
 
-from game.constants import USER_TEMPLATE, COMP_NAMES, SYMBOLS
+from tic_tac_toy.constants import USER_TEMPLATE, COMP_NAMES, SYMBOLS
 
 
 def create_user(symbol) -> dict:
