@@ -1,8 +1,12 @@
 from tic_tac_toy.board import get_board
 from tic_tac_toy.game import game_init, game_cycle, game_end
+from tic_tac_toy.sys_args import sys_help
 
 
 def main():
+    if sys_help():
+        return
+
     game_vars = game_init()
     end_result = True
     while end_result:

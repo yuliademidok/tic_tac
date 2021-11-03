@@ -2,14 +2,16 @@ from itertools import cycle
 
 from tic_tac_toy.board import get_board, board_match, display_board
 from tic_tac_toy.steps import make_step, ask_new_game
-from tic_tac_toy.users import ask_mode, create_users
+from tic_tac_toy.templates import user_interface
+from tic_tac_toy.users import create_users
 from logging import logger
 
 
 def game_init() -> dict:
-    print("Добро пожаловать в Игру Крестики Нолики")
+    user_interface("welcome")
+
     return {
-        "users": create_users(ask_mode()),
+        "users": create_users(),
         "board": get_board(3),
     }
 
