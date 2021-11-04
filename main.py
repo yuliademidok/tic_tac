@@ -1,11 +1,10 @@
-from tic_tac_toy.board import get_board
-from tic_tac_toy.game import game_init, game_cycle, game_end
-from tic_tac_toy.sys_args import sys_help
+from src.board import get_board
+from src.game import game_init, game_cycle, game_end
+from src.sys_args import sys_help
 
 
 def main():
-    if sys_help():
-        return
+    sys_help()
 
     game_vars = game_init()
     end_result = True

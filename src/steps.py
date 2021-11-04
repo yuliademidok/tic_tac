@@ -1,6 +1,6 @@
 import random
 
-from tic_tac_toy.templates import user_interface
+from src.templates import user_interface
 
 
 def get_step() -> tuple:

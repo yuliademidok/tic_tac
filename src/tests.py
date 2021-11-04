@@ -1,4 +1,4 @@
-from tic_tac_toy.board import get_board, board_match
+from src.board import get_board, board_match
 
 
 def board_test():
