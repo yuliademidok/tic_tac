@@ -23,6 +23,7 @@ USER_TEMPLATE = (
 
 FILES = {
     "GAME_INIT": "game_init",
+    "GAME_LOG": "game_log",
 }
 
 COMMANDS = (
@@ -34,11 +35,14 @@ COMMANDS = (
 ROOT_DIR = Path(__file__).parent.parent
 
 log_columns = (
-    'start_time',
-    'game_number',
-    'game_mode',
-    'game_steps',
-    'winner_name',
-    'win_step',
-    'revenge_requested'
+    {"init_game": ("game_number",
+                   'start_time',
+                   "user1",
+                   "user2")
+     },
+    {"game_log": ('game_number',
+                  'winner_name',
+                  'game_steps',)
+     },
+
 )
