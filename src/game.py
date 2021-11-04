@@ -8,6 +8,7 @@ from src.templates import user_interface
 from src.users import create_users, ask_mode
 
 
+@log_game_start
 def game_init() -> dict:
     user_interface("welcome")
 
@@ -21,12 +22,10 @@ def game_init() -> dict:
         "mode": mode,
     }
 
-    # log game init
-    log_game_start(init_data)
     return init_data
 
 
-def game_end(step_num, winner):
+def game_end(step_num, steps, winner):
     result_str = f"победил {winner['name']}" if winner else "произвошла ничья"
     print(f"На ходу #{step_num}", result_str)
     user_answer = ask_new_game()
@@ -34,6 +33,7 @@ def game_end(step_num, winner):
     return user_answer
 
 
+@log_game
 def game_cycle(users: list[dict, ...], board: list[list], mode):
     winner = None
     step_num = None
@@ -53,7 +53,4 @@ def game_cycle(users: list[dict, ...], board: list[list], mode):
         if step_num > 8:
             break
 
-    # log game winner, steps
-    log_game(steps, winner)
-
-    return step_num, winner
+    return step_num, steps, winner
