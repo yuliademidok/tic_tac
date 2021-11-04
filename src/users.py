@@ -1,32 +1,32 @@
 import random
 
-from tic_tac_toy.constants import USER_TEMPLATE, COMP_NAMES, SYMBOLS
+from src.constants import USER_TEMPLATE, COMP_NAMES, SYMBOLS, GAME_MODES
 
 
-def create_user(symbol) -> dict:
+def create_user(symbol, name) -> dict:
     user = {}
     for itm in USER_TEMPLATE:
-        user[itm[0]] = itm[1](symbol=symbol, mode="USER")
+        user[itm[0]] = itm[1](name=name, symbol=symbol, mode=GAME_MODES[0])
     return user
 
 
-def create_comp(symbol) -> dict:
+def create_comp(symbol, name) -> dict:
     return {
-        "name": random.choice(COMP_NAMES),
+        "name": name or random.choice(COMP_NAMES),
         "symbol": symbol,
         "steps": [],
-        "mode": "COMP",
+        "mode": GAME_MODES[1],
     }
 
 
 MODES = {
-    "COMP": {"creator": create_comp},
-    "USER": {"creator": create_user},
+    GAME_MODES[1]: {"creator": create_comp},
+    GAME_MODES[0]: {"creator": create_user},
 }
 
 
-def get_user(mode, symbol) -> dict:
-    return MODES[mode]["creator"](symbol=symbol)
+def get_user(mode, symbol, name) -> dict:
+    return MODES[mode]["creator"](symbol=symbol, name=name)
 
 
 def ask_mode() -> str:
@@ -46,9 +46,9 @@ def ask_mode() -> str:
         continue
 
 
-def create_users(mode) -> list[dict]:
+def create_users(mode, name) -> list[dict]:
     users = []
-    for symbol, mode in zip(SYMBOLS, ("USER", mode)):
-        user = get_user(mode, symbol)
+    for symbol, mode, name in zip(SYMBOLS, (GAME_MODES[0], mode), name):
+        user = get_user(mode, symbol, name)
         users.append(user)
     return users

@@ -1,16 +1,19 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from src.board import get_board
+from src.game import game_init, game_cycle, game_end
+from src.sys_args import sys_help
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    sys_help()
+
+    game_vars = game_init()
+    end_result = True
+    while end_result:
+        result_game = game_cycle(**game_vars)
+        end_result = game_end(*result_game)
+        if end_result:
+            game_vars["board"] = get_board(3)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()

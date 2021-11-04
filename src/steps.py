@@ -1,10 +1,12 @@
 import random
 
+from src.templates import user_interface
+
 
 def get_step() -> tuple:
     while True:
         result = []
-        input_step = input("Введите координаты хода через пробел\n")
+        input_step = user_interface("ask_step")
         steps = input_step.split(" ")
         try:
             if len(steps) != 2:
@@ -12,7 +14,6 @@ def get_step() -> tuple:
             for itm in steps:
                 result.append(int(itm))
         except ValueError:
-            print("Ошибка ввода, повторите")
             continue
         return tuple(result)
 
@@ -25,7 +26,7 @@ def chek_step(board: list[list], step: tuple) -> bool:
         if not cell:
             return True
     except IndexError:
-        print("Неверные координаты")
+        pass
     return False
 
 
@@ -36,7 +37,7 @@ def user_step(user: dict, board: list[list]) -> tuple:
             board[step[0] - 1][step[1] - 1] = user["symbol"]
             return step
         else:
-            print("Ячейка не существует или занята")
+            user_interface("invalid_step")
             continue
 
 
@@ -63,4 +64,3 @@ def ask_new_game() -> bool:
         if user_answer in variants:
             return user_answer == variants[0]
         print("Ошибка ввода, введите верное значение")
-

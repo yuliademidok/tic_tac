@@ -1,29 +1,44 @@
 from itertools import cycle
 
-from tic_tac_toy.board import get_board, board_match, display_board
-from tic_tac_toy.steps import make_step, ask_new_game
-from tic_tac_toy.users import ask_mode, create_users
+from logger.game_logger import log_game_start, log_game
+from src.board import get_board, board_match, display_board
+from src.steps import make_step, ask_new_game
+from src.sys_args import sys_game_args
+from src.templates import user_interface
+from src.users import create_users, ask_mode
 
 
+@log_game_start
 def game_init() -> dict:
-    print("Добро пожаловать в Игру Крестики Нолики")
-    return {
-        "users": create_users(ask_mode()),
+    user_interface("welcome")
+
+    commands = sys_game_args()
+    mode = commands.get("-mode") or ask_mode()
+    name = (commands.get("-u1"), commands.get("-u2"))
+
+    init_data = {
+        "users": create_users(mode, name),
         "board": get_board(3),
+        "mode": mode,
     }
 
+    return init_data
 
-def game_end(step_num, winner):
+
+def game_end(step_num, steps, winner):
     result_str = f"победил {winner['name']}" if winner else "произвошла ничья"
     print(f"На ходу #{step_num}", result_str)
     user_answer = ask_new_game()
+
     return user_answer
 
 
-def game_cycle(users: list[dict, ...], board: list[list]):
+@log_game
+def game_cycle(users: list[dict, ...], board: list[list], mode):
     winner = None
     step_num = None
     steps = set()
+
     for step_num, user in enumerate(cycle(users), 1):
         user["all_steps"] = steps
 
@@ -37,4 +52,5 @@ def game_cycle(users: list[dict, ...], board: list[list]):
             break
         if step_num > 8:
             break
-    return step_num, winner
+
+    return step_num, steps, winner
